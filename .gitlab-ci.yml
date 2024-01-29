@@ -1,0 +1,16 @@
+image: python:latest
+
+stages:
+- test
+
+1-eps_cl:
+  script: python3 test-1-eps_cl.py
+
+2-reach:
+  script: python3 test-2-reach_A.py
+
+3-coreach:
+  script: python3 test-3-coreach.py
+
+4-deterministic:
+  script: python3 test-4-is_deterministic.py
