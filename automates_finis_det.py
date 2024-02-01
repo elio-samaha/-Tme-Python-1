@@ -65,8 +65,14 @@ def lt_from_s_deterministic(T):
 
 def is_deterministic(A):
     # A : automate fini
-    # A COMPLETER
-    return
+    (S,T,I,F,eqS) = A
+    if len(I)!= 1 :
+        return False
+    for s in S:
+        Ts = lt_from_s(eqS, s, T)
+        if not lt_from_s_deterministic(Ts) :
+            return False
+    return True
 
 # Determinisation
 #----------------
@@ -89,8 +95,21 @@ def make_eq_trans(eqS):
 
 def make_det(A):
     # A : automate fini
-    # A COMPLETER
-    return
+    if is_deterministic(A):
+        return 
+    (S,T,I,F,eqS) = A
+    to_do = eps_cl_set(eqS,I,T)
+    done = []
+    Ti = []
+    while to_do != []:
+        done = ajout(eqS, to_do[0], done)
+        Ts= lt_from_s(eqS, to_do[0], T)
+        Ti = union(eqS, Ts, Ti)
+        for (_,_,s2) in Ts:
+            if not is_in(eqS, s2, done) : 
+                to_do = ajout(eqS, s2, to_do)
+
+    return T
  
 
 
