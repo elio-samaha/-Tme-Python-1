@@ -14,3 +14,6 @@ stages:
 
 4-deterministic:
   script: python3 test-4-is_deterministic.py
+
+5-make_det:
+  script: python3 test-5-make_det.py
