@@ -94,33 +94,31 @@ def make_eq_trans(eqS):
 # -----------------------------------------------------------
 
 def make_det(A):
-        # A : automate fini
-            (S, T, I, F, eqS) = A
-                done=[]
-                    to_do = [eps_cl_set(eqS, I, T)]
-                        Tdet=[]
-                            eqSet = make_eq_set(eqS)
-                                eqT = make_eq_trans(eqS)
-                                    while to_do != []:
-                                            temp=to_do[0]
-                                                    done = ajout(eqSet, to_do[0], done)
-                                                            to_do = diff_set(eqSet, [to_do[0]], to_do)
+    # A : automate fini
+    (S, T, I, F, eqS) = A
+    done=[]
+    to_do = [eps_cl_set(eqS, I, T)]
+    Tdet=[]
+    eqSet = make_eq_set(eqS)
+    eqT = make_eq_trans(eqS)
+    while to_do != []:
+        temp=to_do[0]
+        done = ajout(eqSet, to_do[0], done)
+        to_do = diff_set(eqSet, [to_do[0]], to_do)
 
-                                                                    for l in label_from_set(eqS, to_do, T):
-                                                                                etat=[]
-                                                                                            for s in temp:
-                                                                                                            etat=union(eqS, reach_from(eqS, s, l, T), etat)
-                                                                                                                        if not is_in(eqS, etat, done) and etat != []:
-                                                                                                                                        done =ajout(eqSet, etat, done)
-                                                                                                                                                        Tdet=ajout(eqT, (temp, l, etat), T)
-                                                                                                                                                            
-                                                                                                                                                                Fdet=[]
-                                                                                                                                                                    for i in done:
-                                                                                                                                                                            for j in i:
-                                                                                                                                                                                        if is_in(eqS, j, F):
-                                                                                                                                                                                                        Fdet=ajout(eqS, i, Fdet)
-                                                                                                                                                                                                                        
-                                                                                                                                                                                                                            return (done, Tdet, eps_cl_set(eqS, I, T), Fdet, eqS)
- 
-
+        for l in label_from_set(eqS, to_do, T):
+            etat=[]
+            for s in temp:
+                etat=union(eqS, reach_from(eqS, s, l, T), etat)
+            if not is_in(eqS, etat, done) and etat != []:
+                done =ajout(eqSet, etat, done)
+                Tdet=ajout(eqT, (temp, l, etat), T)
+    
+    Fdet=[]
+    for i in done:
+        for j in i:
+            if is_in(eqS, j, F):
+                Fdet=ajout(eqS, i, Fdet)
+                
+    return (done, Tdet, eps_cl_set(eqS, I, T), Fdet, eqS)
 
