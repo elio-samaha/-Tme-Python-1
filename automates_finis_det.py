@@ -65,12 +65,9 @@ def lt_from_s_deterministic(T):
 
 def is_deterministic(A):
     # A : automate fini
-    (S,T,I,F,eqS) = A
-    if len(I)!= 1 :
-        return False
-    for s in S:
-        Ts = lt_from_s(eqS, s, T)
-        if not lt_from_s_deterministic(Ts) :
+    (S, T, I, F, eqS) = A
+    for etat in S:
+        if lt_from_s_deterministic(lt_from_s(eqS, etat, T)) == False:
             return False
     return True
 
@@ -121,4 +118,4 @@ def make_det(A):
                 Fdet=ajout(eqS, i, Fdet)
                 
     return (done, Tdet, eps_cl_set(eqS, I, T), Fdet, eqS)
-
+ 
